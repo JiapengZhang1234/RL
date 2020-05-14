@@ -26,19 +26,15 @@ class DeepQNetwork:
             e_greedy=0.9,
             replay_target_iter=200,
             memory_size=500,
-            batch_size=32,
-            e_greedy_increment=None,
-            output_graph=False,
+            batch_size=32
             ):
         self.n_actions = n_actions
         self.n_features = n_features
         self.lr = learning_rate
         self.gamma = reward_decay
-        self.epsilon_max = e_greedy 
+        self.epsilon= e_greedy 
         self.memory_size = memory_size
         self.batch_size = batch_size
-        self.epsilon_increment = e_greedy_increment
-        self.epsilon = 0 if e_greedy_increment is not None else self.epsilon_max
         
         #build eval_net and target net
         self.eval_net = self._build_net()
