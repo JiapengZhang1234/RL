@@ -21,7 +21,6 @@ class DeepQNetwork:
     def __init__(
                  self,
                  n_actions,
-                 n_features,
                  learning_rate=0.01,
                  reward_decay=0.9,
                  e_greedy=0.9,
@@ -30,10 +29,9 @@ class DeepQNetwork:
                  batch_size=32
                  ):
         self.n_actions = n_actions
-        self.n_features = n_features
         self.lr = learning_rate
         self.gamma = reward_decay
-        self.episilon = e_greedy
+        self.epsilon = e_greedy
         self.memory_size = memory_size
         self.batch_size = batch_size
         
@@ -57,7 +55,7 @@ class DeepQNetwork:
         
         #add convolution layers
         model.add(Conv2D(32,(8,8),strides=(4,4),activation='relu',
-                 input_shape=(1,84,84,4)))
+                 input_shape=(84,84,3)))
         model.add(Conv2D(64,(4,4),strides=(2,2),activation='relu'
                   ))
         model.add(Conv2D(64,(3,3),strides=(1,1),activation='relu'
@@ -75,6 +73,8 @@ class DeepQNetwork:
         
         #model optimization
         model.compile(loss='mse', optimizer='RMSprop')
+        
+        return model
 
     
     # target network para update fun
